@@ -1,0 +1,116 @@
+import java.awt.*;					//画面生成import
+import java.awt.event.*;
+import javax.swing.*;
+
+import java.nio.file.Files;		//ファイル確認import
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import DLer.DownloadWorker;			//ダウンローダーimport
+import DLer.DownloadWorkerDelegate;
+import DLer.FileDownloader;
+import DLer.FileDownloaderDelegate;
+
+
+class MWindow extends JFrame implements ActionListener {		//どうにかしてFileDownloaderDelegateを継承させたい
+	MWindow() {
+		getContentPane().setLayout(new FlowLayout());
+
+		JComboBox<String> cb = new JComboBox<String>();			//コンボボックス作成
+		cb.addItem("選択してください");
+		cb.addItem("標準のModsフォルダーにインストールする	(注1)");
+		cb.addItem("標準のModsフォルダーのModの不足Modを表示する(注2)");
+		cb.addItem("選択したフォルダーにModをダウンロードする");
+		cb.addActionListener(this);
+		getContentPane().add(cb);
+
+		JLabel l1 = new JLabel("<html><p>注1 : Modsフォルダー内のファイルは削除されます</p></html>");
+		JLabel l2 = new JLabel("<html><p>注2 : プログラムの仕様上、名前が変更されている場合は、不足Modとして表示されます。</p></html>");
+		JPanel p1 = new JPanel();
+		JPanel p2 = new JPanel();
+
+		p1.add(l1);
+		p2.add(l2);
+
+		//	ImageIcon i1 = new ImageIcon("./yoshi.png");
+		JCheckBox c1 = new JCheckBox();
+		JLabel l3 = new JLabel("<html><a href="">利用規約</a><p>に同意する</p>");
+
+		JButton jb1 = new JButton("開始");
+
+		JButton jb2 = new JButton("プログラム終了");
+
+		//	jb1.setIcon(i1);
+
+		JPanel p3 = new JPanel();
+		p3.add(c1);
+		p3.add(jb1);
+		p3.add(jb2);
+
+
+
+
+		jb1.addActionListener(new ActionListener() {			//jb1がクリックされたら
+			@Override
+			public void actionPerformed(ActionEvent e) {			//以下のことをする
+
+				String osname = System.getProperty("os.name");
+				// Windowsであったときの処理
+				if(osname.indexOf("Windows")>=0){
+					JOptionPane.showMessageDialog(null, "%appdata%＼.minecraft＼modsにModファイルのダウンロードを開始しました。");
+
+
+					// Linuxであったときの処理
+				} else if(osname.indexOf("Linux")>=0){
+					JOptionPane.showMessageDialog(null, "エラー！Linuxには未対応です。");
+
+
+						// MacOSであったときの処理
+					} else if(osname.indexOf("Mac")>=0){
+					System.getProperty("user.name");
+					JOptionPane.showMessageDialog(null, "users/user.name/Library/Application＼ Support/minecraft/modsにModファイルのダウンロードを開始しました。");
+
+
+							// その他の環境だったときの処理
+				} else {
+					System.getProperty("os.name");
+					JOptionPane.showMessageDialog(null, "エラー！os.nameには未対応です。");
+
+
+				}
+			}
+		});
+
+
+					jb2.addActionListener(new ActionListener() {			//jb2がクリックされたら
+						@Override
+						public void actionPerformed(ActionEvent e) {			//以下のことをする
+							System.exit(0);														// プログラムを終了
+						}
+					});
+
+					Container contentPane = getContentPane();			//コンテンツパネルの位置設定↓
+					contentPane.add(p1, BorderLayout.NORTH);			//p1をNORTHに設定
+					contentPane.add(p2, BorderLayout.NORTH);			//p2をNORTHに設定
+					contentPane.add(p3, BorderLayout.SOUTH);			//p3をSOUTHに設定
+
+					//以下、ウィンドウ設定
+
+
+					setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//ウィンドウを閉じたらプログラム終了
+					setTitle("IMServerModInstaller");	//ウィンドウタイトル設定
+					setSize(600, 400);						//ウィンドウサイズ設定
+					setLocationRelativeTo(null);		//ウィンドウ位置設定(中央)
+					setVisible(true);							//ウィンドウ可視化
+				}
+				public void actionPerformed(ActionEvent e) {										//コピペしたんで謎。多分プリント林でcbの内容をプリントしてる
+					JComboBox cb = (JComboBox)e.getSource();
+					System.out.println(cb.getSelectedItem());			//cb.getSelecteditemで選択したアイテムを表示してそう
+				}
+
+
+
+				public static void main(String[] args) {
+					new MWindow();															//ウィンドウ作成(なぜ最後に？)
+				}
+			}

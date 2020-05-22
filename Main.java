@@ -1,3 +1,5 @@
+package ims;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -6,22 +8,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
 import java.net.*;
-class Main extends JFrame implements ActionListener {
+public class Main extends JFrame {
     Main() {
         getContentPane().setLayout(new FlowLayout());
 
 
-        //コンボボックス作成
-        JComboBox<String> cb = new JComboBox<>();
-        cb.addItem("選択してください");
-        cb.addItem("標準のModsフォルダーにインストールする");
-        cb.addItem("標準のModsフォルダーのModの不足Modを表示する(注)");
-        cb.addItem("選択したフォルダーにModをダウンロードする");
-        cb.addActionListener(this);
-        getContentPane().add(cb);
-
-        JLabel l1 = new JLabel("<html><h4>上の選択肢は機能していません。実装まで首を長くしてお待ち下さい。</h4><br></html>");
-        JLabel l2 = new JLabel("<html><p>注 : プログラムの仕様上、名前が変更されている場合は、不足Modとして表示されます。</p></html>");
         JPanel p0 = new JPanel();
         JPanel p1 = new JPanel();
         JPanel p2 = new JPanel();
@@ -46,26 +37,8 @@ class Main extends JFrame implements ActionListener {
 
         p0.add(l6);
         p0.add(l7);
-        p1.add(l1);
-        p2.add(l2);
 
-        JLabel l3 = new JLabel("利用規約");
-        l3.setForeground(Color.BLUE.darker());
-        l3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        l3.addMouseListener(new MouseAdapter() {
 
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // ラベルをクリックしたとき
-                try {
-
-                    Desktop.getDesktop().browse(new URI("http://im-s.tk/terms/"));
-
-                } catch (IOException | URISyntaxException e1) {
-                    e1.printStackTrace();
-                }
-            }
-        });
 
         JButton jb1 = new JButton("通常ダウンロード開始");
 
@@ -74,13 +47,12 @@ class Main extends JFrame implements ActionListener {
         JButton jb3 = new JButton("サーバーおすすめModのダウンロード開始");
 
         JLabel l4 = new JLabel("©2020 IMServer");
-        JLabel l5 = new JLabel("Version : 1.2.3");
+        JLabel l5 = new JLabel("Version : 1.3.3");
 
         JPanel p3 = new JPanel();
         JPanel p6 = new JPanel();
         JPanel p4 = new JPanel();
         JPanel p5 = new JPanel();
-        p6.add(l3);
         p6.add(l5);
         p4.add(jb1);
         p4.add(jb3);
@@ -3303,15 +3275,10 @@ class Main extends JFrame implements ActionListener {
 
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//ウィンドウを閉じたらプログラム終了
-        setTitle("IMServerModInstaller 1.2.3");	//ウィンドウタイトル設定
+        setTitle("IMServerModInstaller 1.3.3");	//ウィンドウタイトル設定
         setSize(625, 400);						//ウィンドウサイズ設定
         setLocationRelativeTo(null);		//ウィンドウ位置設定(中央)
         setVisible(true);							//ウィンドウ可視化
-    }
-    public void actionPerformed(ActionEvent evnt) {			//多分プリント林でcbの内容をプリントしてる
-        JComboBox cb;
-        cb = (JComboBox)evnt.getSource();
-        System.out.println(cb.getSelectedItem());			//cb.getSelecteditemで選択したアイテムを表示してそう
     }
 
 
